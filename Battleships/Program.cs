@@ -4,15 +4,13 @@ using Battleships.Strategies;
 
 List<IStrategy>? strategyOptions = new List<IStrategy>();
 
-string optionsPrompt = @$"
-Choose strategy style for player {strategyOptions.Count+1}:
-1. Dumb (Totally random)
-2. Smart (Check for nearby ships in cross pattern on succesful hits)
-";
 
 while (strategyOptions.Count < 2)
 {
-    Console.Write(optionsPrompt);
+Console.Write(@$"Choose strategy style for player {strategyOptions.Count+1}:
+1. Dumb (Totally random)
+2. Smart (Check for nearby ships in cross pattern on succesful hits) // Not implemented yet
+");
 
     switch (Console.ReadKey().KeyChar)
     {
@@ -20,9 +18,9 @@ while (strategyOptions.Count < 2)
             strategyOptions.Add(new DumbStrategy());
         break;
 
-        case '2':
+        /*case '2':
             strategyOptions.Add(new SmarterStrategy());
-        break;
+        break;*/
     }
 
     Console.Clear();

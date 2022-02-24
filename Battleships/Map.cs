@@ -3,29 +3,13 @@
 namespace Battleships;
 
 
-public class Field
-{
-    public int PositionX {get;}
-    public int PositionY {get;}
-
-    public char FieldSign {get; set;} = 'O';
-
-    public Field(int x, int y)
-    {
-        PositionX = x;
-        PositionY = y;
-    }
-
-    public Ship? Ship {get; set;}
-}
-
-
 public class Map
 {
     public List<List<Field>> GameMap {get; set;} = new List<List<Field>>();
 
     public List<Ship> Ships {get; set;} = new List<Ship>();
 
+    private Random _random = new Random();
     private int Size {get; set;}
 
     public int SunkenShips {get; set;} = 0;
@@ -67,10 +51,6 @@ public class Map
     private void PlaceShipsOnMap() // Ustawia statki
     {
 
-        Random random = new Random();
-
-
-
         int coordX;
         int coordY;
 
@@ -80,8 +60,8 @@ public class Map
 
             do
             {
-                coordX = random.Next(Size);
-                coordY = random.Next(Size); 
+                coordX = _random.Next(Size);
+                coordY = _random.Next(Size); 
             }while(!CanPlaceShip(ship.Position, coordX, coordY, ship.Size));
                 
             var directionX = 0;
@@ -103,8 +83,8 @@ public class Map
    
     }
 
-
-    private bool CanPlaceShip(Orientation orientation, int startingX, int startingY, int shipSize)
+    // Sprawdza, czy statek może zostać postawiony
+    private bool CanPlaceShip(Orientation orientation, int startingX, int startingY, int shipSize) 
     {
 
         var directionX = 0;
@@ -141,7 +121,7 @@ public class Map
         return true;
     }
 
-    public void PrintMap() // Wyświetla mapę widoczną dla gracza
+    public void PrintMap()
     {
         Console.Write("    ");
         for(var i=0; i<Size; i++)
@@ -169,7 +149,8 @@ public class Map
     }
 
 
-    public bool Hit(int x, int y) // Uderza w punkt na mapie.
+    // Po trafieniu uszkadza statek i dodaje odpowiedni znak w polu.
+    public bool Hit(int x, int y) 
     {
 
         var ship = GameMap[x][y].Ship;
