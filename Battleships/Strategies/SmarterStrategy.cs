@@ -7,7 +7,6 @@ namespace Battleships.Strategies;
 public class SmarterStrategy : IStrategy
 {
 
-    List<>
 
     public void Attack(Player player)
     {
