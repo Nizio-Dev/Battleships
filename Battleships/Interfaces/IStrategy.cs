@@ -5,7 +5,9 @@ namespace Battleships.Interfaces;
 public interface IStrategy
 {
 
-    public void Attack(Player playerToBeAttacked);
+    public Player Player { get; set; }
+
+    public void Attack();
 
 }
 

@@ -17,7 +17,6 @@ public class Field
     }
 
     public Ship? Ship {get; set;}
-    public bool HasSunkenShip {get; set;} = false;
 }
 
 
@@ -170,7 +169,7 @@ public class Map
     }
 
 
-    public void Hit(int x, int y) // Uderza w punkt na mapie.
+    public bool Hit(int x, int y) // Uderza w punkt na mapie.
     {
 
         var ship = GameMap[x][y].Ship;
@@ -179,7 +178,7 @@ public class Map
         {
             Console.WriteLine($" miss!");
             GameMap[x][y].FieldSign = '-';
-            return;
+            return false;
         }
 
         Console.WriteLine($" hit!");
@@ -189,10 +188,9 @@ public class Map
 
         if (ship.ShouldSink)
         {
-            GameMap[x][y].HasSunkenShip = true;
             SunkenShips++;
         }
-
+        return true;
     }
 
 }

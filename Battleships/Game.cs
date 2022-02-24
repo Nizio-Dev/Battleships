@@ -5,11 +5,8 @@ namespace Battleships;
 public class Game
 {
     public List<Player> Players {get;} = new List<Player>();
-    private int _turn = 0;
-    public int Turn {get => _turn;}
-
-    private int _numberOfTurns = 0;
-    public int NumberOfTurns {get;}
+    public int Turn {get; private set;}
+    public int NumberOfTurns {get; private set;}
     public int NumberOfPlayers {get;} = 2;
     public int NumberOfShips{get; } = 5;
 
@@ -24,7 +21,7 @@ public class Game
 
     private void NextTurn()
     {
-        _turn = ++_numberOfTurns % 2;
+        Turn = ++NumberOfTurns % 2;
     }
 
     public void Play() 

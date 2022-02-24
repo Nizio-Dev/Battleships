@@ -9,10 +9,9 @@ public class Player
 
     private const int _mapSize = 10;
 
-    public bool WasLastHitSuccessful { get; set; } = false;
     public string Name { get; }
 
-    private IStrategy _strategy;
+    public IStrategy Strategy {get; private set;}
 
     public List<List<int>> Hits {get; set;}
 
@@ -21,7 +20,8 @@ public class Player
     public Player(string name, IStrategy strategy)
     {
         Name = name;
-        _strategy = strategy;
+        Strategy = strategy;
+        Strategy.Player = this;
         SetupHits();
     }
 
@@ -35,6 +35,6 @@ public class Player
 
     public void MakeMove()
     {
-        _strategy.Attack(this);
+        Strategy.Attack();
     }
 }
