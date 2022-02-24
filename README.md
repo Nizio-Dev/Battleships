@@ -2,7 +2,7 @@
 
 Wyjaśnienia:
 
-Miałem pomysł na mądrzejszą strategię, w której bym śledził wykonane uderzenia i zaimplementował algorytm z nawrotami, ale myślenie nad samą ideą działania takiego algorytmu zabrałaby więcej czasu, niż implementacja. 
+Miałem pomysł na mądrzejszą strategię, w której bym śledził wykonane uderzenia i zaimplementował algorytm z nawrotami, ale myślenie nad samą ideą działania takiego algorytmu zabrałaby więcej czasu, niż implementacja. Jeżeli nie trafił nic ostatnio oraz na mapie niebyłoby statków, które nie są zatopione, to losowo wybrałby nowy punkt i w wybranym kierunu sprawdzałby ile uda mu się zbić punktów pod rząd. W wypadku, gdy nie zbije to zmienia kierunek, natomiast jeżeli trafiłby to kontynuowałby uderzanie w danym kierunku. Jeżeli natrafi na puste pole, lecz nie udało się zbić to idzie do punktu początkowego i zbija w przeciwnym kierunku.
 
 Solucja został podzielony na 2 projekty, pierwszy zawiera:
 * Program.cs - Wstępne ustawienia gry
