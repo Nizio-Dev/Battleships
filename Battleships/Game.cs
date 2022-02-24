@@ -12,15 +12,14 @@ public class Game
     public int NumberOfTurns {get;}
     public int NumberOfPlayers {get;} = 2;
     public int NumberOfShips{get; } = 5;
-    public IStrategy Strategy {get;}
 
     public Player NextPlayer => Players[(Turn+1) % NumberOfPlayers];
 
-    public Game(string firstPlayer, string secondPlayer, IStrategy strategy)
+    public Game(string firstPlayer, string secondPlayer, 
+        IStrategy firstPlayerStrategy, IStrategy secondPlayerStrategy)
     {
-        Players.Add(new Player(firstPlayer));
-        Players.Add(new Player(secondPlayer));
-        Strategy = strategy;
+        Players.Add(new Player(firstPlayer, firstPlayerStrategy));
+        Players.Add(new Player(secondPlayer, secondPlayerStrategy));
     }
 
     private void NextTurn()
@@ -30,17 +29,15 @@ public class Game
 
     public void Play() 
     {
-
-
         while (NextPlayer.Map.SunkenShips < NumberOfShips)
         {
             var player = Players[Turn];
-            Strategy.Attack(Players[Turn]);
-            
-            player.Map.PrintMap();
+            player.MakeMove();
 
             Console.WriteLine($"\nCurrent player: {player.Name}.");
             Console.WriteLine($"Enemy player has {NumberOfShips - player.Map.SunkenShips} ships.");
+
+            player.Map.PrintMap();
 
             Console.WriteLine("\nPress enter to continue.");
             Console.ReadLine();

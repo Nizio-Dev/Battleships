@@ -18,9 +18,10 @@ public class Player
 
     public Map Map = new Map(_mapSize);
 
-    public Player(string name)
+    public Player(string name, IStrategy strategy)
     {
         Name = name;
+        _strategy = strategy;
         SetupHits();
     }
 
@@ -32,5 +33,8 @@ public class Player
             .ToList();
     }
 
-
+    public void MakeMove()
+    {
+        _strategy.Attack(this);
+    }
 }
