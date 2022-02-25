@@ -14,7 +14,7 @@ public class SmarterStrategy : IStrategy
 
     private Direction _direction = Direction.Up;
 
-    private int _initialHitX = 0;
+    private int _initialHitX = 0; // Przechowywany punkt odniesienia 
     private int _initialHitY = 0;
 
     private bool _hasHit = false;
@@ -28,22 +28,13 @@ public class SmarterStrategy : IStrategy
     private int _consuctiveHits = 0;
     public Player Player {get; set;}
 
-
-    public void SetupHits()
-    {
-        
-        Player.Hits = Enumerable.Range(0, Player.Map.GameMap.Count)
-        .Select(x => 
-            Enumerable.Range(0, Player.Map.GameMap.Count).ToList())
-        .ToList();
-    }
-
+    // Jeżeli zna lokacje statku i nie zatopił ostatnio zadnego, to uderza losowo
+    // W innym wypadku porusza się w okol punktu odniesienia
     public void Attack()
     {
         if (!_knownShipLocation || _hasSankShipLastTurn)
         {
-            HitNextUnknown();  
-
+            HitNextUnknown();
         }
         else
         {
@@ -58,7 +49,7 @@ public class SmarterStrategy : IStrategy
         while (!_hasHit)
         {
 
-            switch (_direction)
+            switch (_direction) // Sprawdza dozwolone ruchy i uderza, w ktore moze
             {
                 case Direction.Up:
                     TryHit(_initialHitX, _initialHitY-_consuctiveHits);
@@ -93,6 +84,8 @@ public class SmarterStrategy : IStrategy
 
     }
 
+
+    // Uderza w wybrane pole. W przypadku uderzenia dostaje informacje
     private void Hit(int coordX, int coordY)
     {
 
@@ -112,30 +105,32 @@ public class SmarterStrategy : IStrategy
     
     }
 
-    private void SetDirection()
+    // Jezeli uderzyl nieprzerwanie 2 razy, to zmienia kierunek na przeciwny
+    // W innym wypadku o 45 stopni
+    private void SetDirection() 
     {
         switch (_direction)
         {
             case Direction.Up:
-                _direction = _consuctiveHits > 1 ? Direction.Down : Direction.Right;
+                _direction = _consuctiveHits >= 2 ? Direction.Down : Direction.Right;
                 break;
 
             case Direction.Down:
-                _direction = _consuctiveHits > 1 ? Direction.Up : Direction.Left;
+                _direction = _consuctiveHits > 2 ? Direction.Up : Direction.Left;
                 break;
 
             case Direction.Left:
-                _direction = _consuctiveHits > 1 ? Direction.Right : Direction.Up;
+                _direction = _consuctiveHits > 2 ? Direction.Right : Direction.Up;
                 break;
 
             case Direction.Right:
-                _direction = _consuctiveHits > 1 ? Direction.Left : Direction.Down;
+                _direction = _consuctiveHits > 2 ? Direction.Left : Direction.Down;
                 break;
         }
     }
 
-
-    private bool IsHitValid(int targettedX, int targettedY)
+    // Sprawdza mozliwosci ataku
+    private bool IsHitValid(int targettedX, int targettedY) 
     {
 
         var map = Player.Map.GameMap;
@@ -152,6 +147,7 @@ public class SmarterStrategy : IStrategy
 
     }
 
+    // Dumb strategy
     private void HitNextUnknown()
     {
         int x;
@@ -178,6 +174,5 @@ public class SmarterStrategy : IStrategy
         
         Player.Hits[x].Remove(y);
     }
-
 
 }

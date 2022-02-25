@@ -9,7 +9,6 @@ public interface IStrategy
 
     public void Attack();
 
-    public void SetupHits();
 
 }
 

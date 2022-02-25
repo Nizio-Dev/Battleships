@@ -22,8 +22,18 @@ public class Player
         Name = name;
         Strategy = strategy;
         Strategy.Player = this;
-        Strategy.SetupHits();
+        SetupHits();
     }
+
+    public void SetupHits()
+    {
+        Hits = Enumerable.Range(0, Map.GameMap.Count)
+        .Select(x => 
+            Enumerable.Range(0, Map.GameMap.Count).ToList())
+        .ToList();
+    }
+
+
 
     public void MakeMove()
     {
