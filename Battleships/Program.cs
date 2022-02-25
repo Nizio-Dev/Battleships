@@ -18,9 +18,9 @@ Console.Write(@$"Choose strategy style for player {strategyOptions.Count+1}:
             strategyOptions.Add(new DumbStrategy());
         break;
 
-        /*case '2':
+        case '2':
             strategyOptions.Add(new SmarterStrategy());
-        break;*/
+        break;
     }
 
     Console.Clear();

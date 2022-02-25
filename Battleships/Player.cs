@@ -13,7 +13,7 @@ public class Player
 
     public IStrategy Strategy {get; private set;}
 
-    public List<List<int>> Hits {get; set;}
+    public List<List<int>> Hits {get; set;} = new List<List<int>>();
 
     public Map Map = new Map(_mapSize);
 
@@ -22,15 +22,7 @@ public class Player
         Name = name;
         Strategy = strategy;
         Strategy.Player = this;
-        SetupHits();
-    }
-
-    private void SetupHits()
-    {
-            Hits = Enumerable.Range(0, _mapSize)
-            .Select(x => 
-                Enumerable.Range(0, _mapSize).ToList())
-            .ToList();
+        Strategy.SetupHits();
     }
 
     public void MakeMove()

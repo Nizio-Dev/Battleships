@@ -10,9 +10,18 @@ public class DumbStrategy : IStrategy
     public Player Player { get; set; }
     private Random _random = new Random();
 
-    public void Attack() // Złożoność obliczeniowa w najlepszym przypadku O(1), a w najgorszym O(N).
+    public void SetupHits()
     {
 
+        Player.Hits = Enumerable.Range(0, Player.Map.GameMap.Count)
+        .Select(x => 
+            Enumerable.Range(0, Player.Map.GameMap.Count).ToList())
+        .ToList();
+
+    }
+
+    public void Attack() // Złożoność obliczeniowa w najlepszym przypadku O(1), a w najgorszym O(N).
+    {
         int x;
         do
         {

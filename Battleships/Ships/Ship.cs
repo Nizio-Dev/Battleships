@@ -18,20 +18,20 @@ public class Ship : IShip
 
     public bool ShouldSink { get; set; } = false;
 
-    private int _hits;
+    public int Health {get; private set; }
 
     public Ship(string name, int size)
     {
         Name = name;
         Size = size;
-        _hits = size;
+        Health = size;
     }
 
     public void Damage() //  Jeżeli uderzenie zatopi statek, metoda zwraca wartość true
     {
-        _hits--;
+        Health--;
 
-        if(_hits <= 0)
+        if(Health <= 0)
         {
             ShouldSink = true;
             Console.WriteLine($"{Name} has sank!");
